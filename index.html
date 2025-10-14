@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Generator</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="home">
+  <h1 style="color: #ffffff;" >Portfolio Generator</h1>
+  <p style="color: #ffffff; text-align: center;">Create your personal portfolio website in minutes!</p>
+
+  <div class="container">
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>Enter Your Details</h2>
+
+      <label>Name:</label>
+      <input type="text" id="nameInput" placeholder="Enter your name">
+
+      <label>About You:</label>
+      <textarea id="aboutInput" placeholder="Write something about yourself"></textarea>
+
+      <label>Projects (comma separated):</label>
+      <textarea id="projectsInput" placeholder="E.g., E-Commerce App, Blog Website"></textarea>
+
+      <label>Contact:</label>
+      <input type="email" id="contactInput" placeholder="Enter your email">
+
+      <label>Select Theme:</label>
+      <select id="theme-selector">
+        <option value="classic-light">Light</option>
+        <option value="modern-dark">Dark</option>
+        <option value="colorful">Colorful</option>
+      </select>
+
+      <button id="download-btn">Download Portfolio</button>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="preview-section">
+      <h2>Live Preview</h2>
+      <div id="portfolio-preview" class="portfolio-preview classic-light">
+        <section id="previewPortfolio">
+          <h3 id="previewName">Your Name</h3>
+          <p id="previewAbout">Write something about yourself</p>
+
+          <h3>Projects</h3>
+          <div id="previewProjects" class="projects-container">
+            Your projects will appear here
+          </div>
+
+        <br>
+          <h3>Contact</h3>
+          <p id="previewContact">Your contact info</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2 style="color: rgb(0, 0, 0); font-size: large;">About This Generator</h2>
+  <p style="color: rgb(0, 0, 0); font-size: large;">This Portfolio Generator lets you create a complete portfolio website quickly. Fill in your details, preview your portfolio, and download it!
+The Personal Portfolio Website Generator is a simple and easy-to-use tool that helps students and professionals create a personal portfolio website without writing code.
+Users can enter their personal and professional details, choose a theme, preview the site live, and download ready-to-use HTML, CSS, and JS files.
+This project is perfect for beginners, students, or anyone who wants a professional online presence quickly.</p></section>
+
+<section id="contact">
+  <h2 style="color: rgb(0, 0, 0); font-size: large;">Contact Me / Support<br>
+If you have any questions, suggestions, or want to collaborate, feel free to reach out:<br>
+Email: yourname@example.com<br>
+LinkedIn: linkedin.com/in/yourname<br>
+GitHub: github.com/yourname </h2>
+  
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

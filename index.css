@@ -1,0 +1,142 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  background-color: #008C72;
+  color: #333;
+}
+
+/* Navbar */
+nav {
+  background-color: #003840;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Sections */
+section {
+  padding: 60px 20px;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+/* Container */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+/* Form & Preview */
+.form-section, .preview-section {
+  background-color: #fff;
+  padding: 20px;
+  margin: 10px;
+  flex: 1 1 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 95%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Portfolio Preview */
+.portfolio-preview {
+  text-align: center;
+}
+
+#previewPortfolio {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Projects container */
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.project-card {
+  min-width: 220px;
+  max-width: 280px;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f7ebeb;
+  box-shadow:  4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  text-align: center;
+  cursor: pointer;
+  flex: 1 1 220px;
+}
+
+/* Hover effect */
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  background: #f9f9ff;
+}
+
+
+
+/* Themes */
+.classic-light #previewPortfolio { background-color: #fff; color: #333; }
+.modern-dark #previewPortfolio { background-color: #1e1e1e; color: #8f8686; }
+.colorful #previewPortfolio { background: linear-gradient(135deg, #ff6b6b, #f7d794); color: #1a1a1a; }
+
+@media (max-width: 768px) {
+  .form-section, .preview-section { flex: 1 1 100%; }
+}
