@@ -3,88 +3,228 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Generator</title>
+  <title>PortfolioGen — Build Your Portfolio in Minutes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">Portfolio<span>Gen</span></a>
+      <div class="nav-links">
+        <a href="#home">Generator</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-<section id="home">
-  <h1 style="color: #ffffff;" >Portfolio Generator</h1>
-  <p style="color: #ffffff; text-align: center;">Create your personal portfolio website in minutes!</p>
-
-  <div class="container">
-    <!-- Form Section -->
-    <div class="form-section">
-      <h2>Enter Your Details</h2>
-
-      <label>Name:</label>
-      <input type="text" id="nameInput" placeholder="Enter your name">
-
-      <label>About You:</label>
-      <textarea id="aboutInput" placeholder="Write something about yourself"></textarea>
-
-      <label>Projects (comma separated):</label>
-      <textarea id="projectsInput" placeholder="E.g., E-Commerce App, Blog Website"></textarea>
-
-      <label>Contact:</label>
-      <input type="email" id="contactInput" placeholder="Enter your email">
-
-      <label>Select Theme:</label>
-      <select id="theme-selector">
-        <option value="classic-light">Light</option>
-        <option value="modern-dark">Dark</option>
-        <option value="colorful">Colorful</option>
-      </select>
-
-      <button id="download-btn">Download Portfolio</button>
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero">
+      <div class="hero-badge">✦ Free · No Sign-up · Instant Download</div>
+      <h1 class="hero-title">Build Your Portfolio<br><em>in Minutes</em></h1>
+      <p class="hero-sub">Fill in your details, pick a theme, and download a ready-to-use portfolio website — no coding required.</p>
+      <a href="#generator" class="hero-cta">Start Building ↓</a>
     </div>
 
-    <!-- Preview Section -->
-    <div class="preview-section">
-      <h2>Live Preview</h2>
-      <div id="portfolio-preview" class="portfolio-preview classic-light">
-        <section id="previewPortfolio">
-          <h3 id="previewName">Your Name</h3>
-          <p id="previewAbout">Write something about yourself</p>
-
-          <h3>Projects</h3>
-          <div id="previewProjects" class="projects-container">
-            Your projects will appear here
-          </div>
-
-        <br>
-          <h3>Contact</h3>
-          <p id="previewContact">Your contact info</p>
-        </section>
+    <!-- STEPS -->
+    <div class="steps-row" id="generator">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-label">Fill your details</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-label">Choose a theme</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-label">Download & publish</div>
       </div>
     </div>
-  </div>
-</section>
 
-<section id="about">
-  <h2 style="color: rgb(0, 0, 0); font-size: large;">About This Generator</h2>
-  <p style="color: rgb(0, 0, 0); font-size: large;">This Portfolio Generator lets you create a complete portfolio website quickly. Fill in your details, preview your portfolio, and download it!
-The Personal Portfolio Website Generator is a simple and easy-to-use tool that helps students and professionals create a personal portfolio website without writing code.
-Users can enter their personal and professional details, choose a theme, preview the site live, and download ready-to-use HTML, CSS, and JS files.
-This project is perfect for beginners, students, or anyone who wants a professional online presence quickly.</p></section>
+    <!-- MAIN TOOL -->
+    <div class="tool-grid">
 
-<section id="contact">
-  <h2 style="color: rgb(0, 0, 0); font-size: large;">Contact Me / Support<br>
-If you have any questions, suggestions, or want to collaborate, feel free to reach out:<br>
-Email: yourname@example.com<br>
-LinkedIn: linkedin.com/in/yourname<br>
-GitHub: github.com/yourname </h2>
-  
-</section>
+      <!-- LEFT: FORM -->
+      <div class="card form-card">
+        <div class="card-header">
+          <h2>Your Details</h2>
+          <p class="card-sub">All fields are optional — fill what you have.</p>
+        </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-<script src="script.js"></script>
+        <div class="form-group">
+          <label for="nameInput">Full Name</label>
+          <input type="text" id="nameInput" placeholder="e.g. Alex Johnson" autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label for="roleInput">Your Role / Title</label>
+          <input type="text" id="roleInput" placeholder="e.g. Frontend Developer">
+        </div>
+
+        <div class="form-group">
+          <label for="aboutInput">About You</label>
+          <textarea id="aboutInput" rows="4" placeholder="Write 2–3 sentences about yourself, your skills, and what you're passionate about."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="projectsInput">
+            Projects
+            <span class="label-hint">comma-separated</span>
+          </label>
+          <textarea id="projectsInput" rows="3" placeholder="e.g. E-Commerce App, Portfolio Site, Chat Bot"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="skillsInput">
+            Skills
+            <span class="label-hint">comma-separated</span>
+          </label>
+          <input type="text" id="skillsInput" placeholder="e.g. HTML, CSS, JavaScript, Python">
+        </div>
+
+        <div class="form-group">
+          <label for="contactInput">Email Address</label>
+          <input type="email" id="contactInput" placeholder="you@example.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="githubInput">GitHub Username <span class="label-hint">optional</span></label>
+          <input type="text" id="githubInput" placeholder="yourusername">
+        </div>
+
+        <div class="form-group">
+          <label>Choose Theme</label>
+          <div class="theme-picker">
+            <button class="theme-btn active" data-theme="classic-light" aria-label="Light theme">
+              <span class="theme-swatch light-swatch"></span>
+              Light
+            </button>
+            <button class="theme-btn" data-theme="modern-dark" aria-label="Dark theme">
+              <span class="theme-swatch dark-swatch"></span>
+              Dark
+            </button>
+            <button class="theme-btn" data-theme="colorful" aria-label="Colorful theme">
+              <span class="theme-swatch color-swatch"></span>
+              Vibrant
+            </button>
+          </div>
+        </div>
+
+        <button id="download-btn" class="btn-primary">
+          <span class="btn-icon">⬇</span>
+          Download Portfolio
+        </button>
+        <p class="download-note">Downloads a ZIP with index.html + style.css</p>
+      </div>
+
+      <!-- RIGHT: PREVIEW -->
+      <div class="card preview-card">
+        <div class="card-header">
+          <h2>Live Preview</h2>
+          <p class="card-sub">Updates as you type.</p>
+        </div>
+        <div class="preview-browser">
+          <div class="browser-bar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+            <span class="browser-url">yourportfolio.html</span>
+          </div>
+          <div id="portfolio-preview" class="portfolio-preview classic-light">
+            <div class="pv-hero">
+              <div class="pv-avatar" id="previewAvatar">AJ</div>
+              <h3 id="previewName">Your Name</h3>
+              <p class="pv-role" id="previewRole">Your Role</p>
+            </div>
+            <div class="pv-section">
+              <h4>About</h4>
+              <p id="previewAbout">Write something about yourself — it will show here live.</p>
+            </div>
+            <div class="pv-section">
+              <h4>Projects</h4>
+              <div id="previewProjects" class="pv-projects">
+                <span class="pv-tag">Your Projects</span>
+              </div>
+            </div>
+            <div class="pv-section" id="skillsSection">
+              <h4>Skills</h4>
+              <div id="previewSkills" class="pv-projects">
+                <span class="pv-tag">Your Skills</span>
+              </div>
+            </div>
+            <div class="pv-section pv-contact">
+              <h4>Contact</h4>
+              <p id="previewContact">your@email.com</p>
+              <p id="previewGithub" class="pv-github"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-badge">About This Project</div>
+      <h2 class="section-title">Why PortfolioGen?</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon">⚡</div>
+          <h3>Instant Setup</h3>
+          <p>No frameworks, no setup, no accounts. Fill the form and download your portfolio in under 2 minutes.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">🎨</div>
+          <h3>Multiple Themes</h3>
+          <p>Choose from Light, Dark, or Vibrant themes. Each theme produces clean, professional HTML and CSS output.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">📦</div>
+          <h3>Ready to Publish</h3>
+          <p>The downloaded ZIP contains everything you need. Upload it to GitHub Pages or Netlify and you're live.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">🎓</div>
+          <h3>Built for Students</h3>
+          <p>Perfect for your resume, internship applications, or college projects. Show your work professionally.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner contact-inner">
+      <div class="section-badge">Get in Touch</div>
+      <h2 class="section-title">Have a Question?</h2>
+      <p class="contact-sub">Found a bug or have a feature suggestion? I'd love to hear from you.</p>
+      <div class="contact-links">
+        <a href="mailto:aashigasree@gmail.com" class="contact-chip">✉ aashigasree@gmail.com</a>
+        <a href="https://www.linkedin.com/in/aashiga-sree/" target="_blank" class="contact-chip">🔗 LinkedIn</a>
+        <a href="https://github.com/Aashigasree" target="_blank" class="contact-chip">🐙 GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with ♥ by a student &nbsp;·&nbsp; PortfolioGen &nbsp;·&nbsp; <a href="#home">Back to top ↑</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
