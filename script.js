@@ -1,105 +1,301 @@
-const nameInput = document.getElementById('nameInput');
-const aboutInput = document.getElementById('aboutInput');
+/* =====================================================
+   PortfolioGen — script.js
+   Clean, readable, well-commented JS
+   ===================================================== */
+
+// ── DOM references ────────────────────────────────────
+const nameInput     = document.getElementById('nameInput');
+const roleInput     = document.getElementById('roleInput');
+const aboutInput    = document.getElementById('aboutInput');
 const projectsInput = document.getElementById('projectsInput');
-const contactInput = document.getElementById('contactInput');
+const skillsInput   = document.getElementById('skillsInput');
+const contactInput  = document.getElementById('contactInput');
+const githubInput   = document.getElementById('githubInput');
 
-const previewName = document.getElementById('previewName');
-const previewAbout = document.getElementById('previewAbout');
-const previewProjects = document.getElementById('previewProjects');
+const previewName    = document.getElementById('previewName');
+const previewRole    = document.getElementById('previewRole');
+const previewAbout   = document.getElementById('previewAbout');
+const previewProjects= document.getElementById('previewProjects');
+const previewSkills  = document.getElementById('previewSkills');
 const previewContact = document.getElementById('previewContact');
+const previewGithub  = document.getElementById('previewGithub');
+const previewAvatar  = document.getElementById('previewAvatar');
+const previewBox     = document.getElementById('portfolio-preview');
 
-const themeSelector = document.getElementById('theme-selector');
-const previewBox = document.getElementById('portfolio-preview');
+const downloadBtn   = document.getElementById('download-btn');
+const hamburger     = document.getElementById('hamburger');
+const navLinks      = document.querySelector('.nav-links');
 
-const downloadBtn = document.getElementById('download-btn');
+// ── Helper: get initials from name ────────────────────
+function getInitials(name) {
+  return name.trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || '?';
+}
 
-// Live Preview
-nameInput.addEventListener('input', () => previewName.textContent = nameInput.value || "Your Name");
-aboutInput.addEventListener('input', () => previewAbout.textContent = aboutInput.value || "Write something about yourself");
+// ── Helper: parse comma-separated input ───────────────
+function parseList(str) {
+  return str.split(',').map(s => s.trim()).filter(Boolean);
+}
 
-projectsInput.addEventListener('input', () => {
-  const projects = projectsInput.value.split(',').map(p => p.trim()).filter(p => p);
-  if (!projects.length) return previewProjects.innerHTML = "Your projects will appear here";
-  previewProjects.innerHTML = projects.map(p => `<div class="project-card">${p}</div>`).join('');
+// ── Helper: render tag chips ──────────────────────────
+function renderTags(list, fallback) {
+  if (!list.length) return `<span class="pv-tag">${fallback}</span>`;
+  return list.map(item => `<span class="pv-tag">${item}</span>`).join('');
+}
+
+// ── Live Preview Updates ──────────────────────────────
+
+nameInput.addEventListener('input', () => {
+  const val = nameInput.value.trim();
+  previewName.textContent = val || 'Your Name';
+  previewAvatar.textContent = val ? getInitials(val) : '?';
 });
 
-contactInput.addEventListener('input', () => previewContact.textContent = contactInput.value || "Your contact info");
+roleInput.addEventListener('input', () => {
+  previewRole.textContent = roleInput.value.trim() || 'Your Role';
+});
 
-themeSelector.addEventListener('change', () => previewBox.className = 'portfolio-preview ' + themeSelector.value);
+aboutInput.addEventListener('input', () => {
+  previewAbout.textContent = aboutInput.value.trim() || 'Write something about yourself — it will show here live.';
+});
 
-// Download Portfolio
-downloadBtn.addEventListener('click', () => {
-  const zip = new JSZip();
+projectsInput.addEventListener('input', () => {
+  const list = parseList(projectsInput.value);
+  previewProjects.innerHTML = renderTags(list, 'Your Projects');
+});
 
-  const projectsHTML = projectsInput.value.split(',').map(p => `<div class="project-card">${p.trim()}</div>`).join('');
+skillsInput.addEventListener('input', () => {
+  const list = parseList(skillsInput.value);
+  previewSkills.innerHTML = renderTags(list, 'Your Skills');
+});
 
-  const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${nameInput.value || "Portfolio"}</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<nav>
-  <a href="#home">Home</a>
-  <a href="#about">Credit</a>
-  <a href="#contact">Contact</a>
-</nav>
+contactInput.addEventListener('input', () => {
+  previewContact.textContent = contactInput.value.trim() || 'your@email.com';
+});
 
-<section id="home" class="portfolio-preview ${themeSelector.value}">
-  <div class="box-section">
-    <h3>${nameInput.value}</h3>
-    <p>${aboutInput.value}</p>
-  </div>
-  <div class="box-section">
-    <h3>Projects</h3>
-    <div class="projects-container">
-      ${projectsHTML}
-    </div>
-  </div>
-  <div class="box-section">
-    <h3>Contact</h3>
-    <p>${contactInput.value}</p>
-  </div>
-</section>
+githubInput.addEventListener('input', () => {
+  const val = githubInput.value.trim();
+  previewGithub.textContent = val ? `github.com/${val}` : '';
+});
 
-<section id="about">
-  <h2 style="color: rgb(0, 0, 0); font-size: large;">About This Generator</h2>
-  <p style="color: rgb(0, 0, 0); font-size: large;">This Portfolio Generator lets you create a complete portfolio website quickly. Fill in your details, preview your portfolio, and download it!
-The Personal Portfolio Website Generator is a simple and easy-to-use tool that helps students and professionals create a personal portfolio website without writing code.
-Users can enter their personal and professional details, choose a theme, preview the site live, and download ready-to-use HTML, CSS, and JS files.
-This project is perfect for beginners, students, or anyone who wants a professional online presence quickly.</p></section>
+// ── Theme Picker ──────────────────────────────────────
+let currentTheme = 'classic-light';
 
+document.querySelectorAll('.theme-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentTheme = btn.dataset.theme;
+    previewBox.className = 'portfolio-preview ' + currentTheme;
+  });
+});
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>Email: ${contactInput.value}</p>
-</section>
-</body>
-</html>
-  `;
+// ── Mobile Hamburger ──────────────────────────────────
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
 
-  const cssContent = `
-body { font-family: Arial, sans-serif; margin:0; padding:0; scroll-behavior:smooth; }
-nav { background:#333; color:#fff; display:flex; justify-content:center; padding:10px 0; position:sticky; top:0; }
-nav a { color:#fff; text-decoration:none; margin:0 20px; font-weight:bold; }
-nav a:hover { text-decoration:underline; }
-section { padding:40px 20px; }
-h1,h2,h3 { margin:0 0 10px 0; text-align:center; }
-.portfolio-preview { text-align:center; }
-.box-section { border:1px solid #ccc; padding:15px; border-radius:8px; margin:15px 0; }
-.projects-container { display:flex; gap:15px; overflow-x:auto; padding:10px 0; }
-.project-card { min-width:200px; border:1px solid #aaa; border-radius:8px; padding:10px; background-color:#fff; flex-shrink:0; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-${themeSelector.value === 'modern-dark' ? `.box-section { background-color:#1e1e1e; color:#f0f0f0; }` :
-themeSelector.value === 'classic-light' ? `.box-section { background-color:#fff; color:#333; }` :
-`.box-section { background:linear-gradient(135deg, #ff6b6b, #f7d794); color:#1a1a1a; }`}
+// Close nav when a link is clicked
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// ── Generate Downloaded Portfolio CSS ────────────────
+function buildPortfolioCss(theme) {
+  const base = `
+/* Generated by PortfolioGen */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+nav {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
+}
+nav .logo { font-size: 1.2rem; font-weight: 700; text-decoration: none; }
+nav .nav-links { display: flex; gap: 28px; }
+nav a { text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+.hero { text-align: center; padding: 80px 24px 60px; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.03em; margin-bottom: 12px; }
+.hero .role { font-size: 1.1rem; opacity: 0.6; margin-bottom: 20px; }
+.hero .about-text { max-width: 560px; margin: 0 auto; opacity: 0.75; }
+.avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 700;
+  margin: 0 auto 20px;
+}
+section { padding: 60px 24px; max-width: 860px; margin: 0 auto; }
+.section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.tag {
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.85rem; font-weight: 500;
+  border: 1px solid;
+}
+.contact-box { border: 1px solid; border-radius: 12px; padding: 20px 24px; margin-top: 12px; }
+footer { text-align: center; padding: 32px; font-size: 0.82rem; opacity: 0.5; border-top: 1px solid; }
+@media (max-width: 600px) {
+  nav { padding: 0 20px; }
+  .hero { padding: 50px 20px 40px; }
+}
 `;
 
-  zip.file("index.html", htmlContent);
-  zip.file("style.css", cssContent);
+  const themes = {
+    'classic-light': `
+body { background: #ffffff; color: #1a1a1a; }
+nav { background: #f8f8f8; border-bottom: 1px solid #e5e5e5; }
+nav .logo, nav a { color: #1a1a1a; }
+nav a:hover { color: #2563EB; }
+.avatar { background: #2563EB; color: #fff; }
+.section-title { color: #2563EB; }
+.tag { background: #EFF6FF; color: #2563EB; border-color: #BFDBFE; }
+.contact-box { background: #F8FAFC; border-color: #E2E8F0; }
+footer { border-color: #e5e5e5; }`,
+    'modern-dark': `
+body { background: #0F0F14; color: #E2E2E2; }
+nav { background: #0F0F14; border-bottom: 1px solid #2a2a3a; }
+nav .logo, nav a { color: #E2E2E2; }
+nav a:hover { color: #7C9EFF; }
+.avatar { background: #7C9EFF; color: #0F0F14; }
+.section-title { color: #7C9EFF; }
+.tag { background: #1e1e2e; color: #A5B4FC; border-color: #3730a3; }
+.contact-box { background: #1a1a24; border-color: #2a2a3a; }
+footer { border-color: #2a2a3a; }`,
+    'colorful': `
+body { background: linear-gradient(160deg, #fdf4ff 0%, #fef3c7 100%) fixed; color: #1a1a1a; min-height: 100vh; }
+nav { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(168,85,247,0.15); }
+nav .logo, nav a { color: #1a1a1a; }
+nav a:hover { color: #9333EA; }
+.avatar { background: linear-gradient(135deg, #f97316, #a855f7); color: #fff; }
+.section-title { color: #9333EA; }
+.tag { background: rgba(168,85,247,0.1); color: #7c3aed; border-color: rgba(168,85,247,0.3); }
+.contact-box { background: rgba(168,85,247,0.05); border-color: rgba(168,85,247,0.2); }
+footer { border-color: rgba(168,85,247,0.15); }`
+  };
 
-  zip.generateAsync({ type: "blob" }).then(content => saveAs(content, "portfolio.zip"));
+  return base + (themes[theme] || themes['classic-light']);
+}
+
+// ── Generate Downloaded Portfolio HTML ────────────────
+function buildPortfolioHtml({ name, role, about, projects, skills, contact, github, theme }) {
+  const initials = name ? getInitials(name) : '?';
+  const projectTags = projects.map(p => `<span class="tag">${p}</span>`).join('');
+  const skillTags   = skills.map(s   => `<span class="tag">${s}</span>`).join('');
+
+  const githubLine = github
+    ? `<p style="margin-top:8px;opacity:0.6;font-size:0.85rem;">github.com/${github}</p>`
+    : '';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${name || 'My Portfolio'}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="#home" class="logo">${name || 'Portfolio'}</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="hero" id="home">
+    <div class="avatar">${initials}</div>
+    <h1>${name || 'Your Name'}</h1>
+    <p class="role">${role || ''}</p>
+    <p class="about-text">${about || ''}</p>
+  </div>
+
+  ${skills.length ? `
+  <section>
+    <p class="section-title">Skills</p>
+    <div class="tags">${skillTags}</div>
+  </section>` : ''}
+
+  ${projects.length ? `
+  <section id="projects">
+    <p class="section-title">Projects</p>
+    <div class="tags">${projectTags}</div>
+  </section>` : ''}
+
+  <section id="contact">
+    <p class="section-title">Contact</p>
+    <div class="contact-box">
+      <p>${contact || ''}</p>
+      ${githubLine}
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with PortfolioGen &nbsp;·&nbsp; ${new Date().getFullYear()}</p>
+  </footer>
+
+</body>
+</html>`;
+}
+
+// ── Download Handler ──────────────────────────────────
+downloadBtn.addEventListener('click', async () => {
+  const name     = nameInput.value.trim();
+  const role     = roleInput.value.trim();
+  const about    = aboutInput.value.trim();
+  const projects = parseList(projectsInput.value);
+  const skills   = parseList(skillsInput.value);
+  const contact  = contactInput.value.trim();
+  const github   = githubInput.value.trim();
+
+  // Simple validation — warn if completely empty
+  if (!name && !about && !contact) {
+    downloadBtn.textContent = '⚠ Fill in at least your name!';
+    downloadBtn.style.background = '#EF4444';
+    setTimeout(() => {
+      downloadBtn.innerHTML = '<span class="btn-icon">⬇</span> Download Portfolio';
+      downloadBtn.style.background = '';
+    }, 2500);
+    return;
+  }
+
+  // Loading state
+  downloadBtn.innerHTML = '<span class="btn-icon">⏳</span> Generating…';
+  downloadBtn.disabled = true;
+
+  const html = buildPortfolioHtml({ name, role, about, projects, skills, contact, github, theme: currentTheme });
+  const css  = buildPortfolioCss(currentTheme);
+
+  const zip = new JSZip();
+  zip.file('index.html', html);
+  zip.file('style.css', css);
+  zip.file('README.txt',
+    `Your Portfolio — Generated by PortfolioGen\n\n` +
+    `Files:\n  index.html  — your portfolio page\n  style.css   — all the styles\n\n` +
+    `To publish for free:\n` +
+    `  1. Create a GitHub account at github.com\n` +
+    `  2. Create a new repository named "portfolio"\n` +
+    `  3. Upload both files\n` +
+    `  4. Go to Settings → Pages → Deploy from main branch\n` +
+    `  5. Your site will be live at https://yourusername.github.io/portfolio\n`
+  );
+
+  const content = await zip.generateAsync({ type: 'blob' });
+  saveAs(content, `${name ? name.replace(/\s+/g, '-').toLowerCase() : 'my'}-portfolio.zip`);
+
+  // Reset button
+  downloadBtn.innerHTML = '✓ Downloaded!';
+  downloadBtn.style.background = '#16a34a';
+  setTimeout(() => {
+    downloadBtn.innerHTML = '<span class="btn-icon">⬇</span> Download Portfolio';
+    downloadBtn.style.background = '';
+    downloadBtn.disabled = false;
+  }, 3000);
 });
